@@ -5,10 +5,21 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// Lesson 1: Require mongoose
-// Lesson 2: Require dotenv configuration
+require("dotenv").config();
+const debug = require('debug')("irontrello:"+path.basename(__filename).split('.')[0]);
+const mongoose = require ("mongoose");
+const dbURL = process.env.dbURL;
+
+
 
 const app = express();
+
+mongoose.connect(dbURL)
+  .then(() => debug(`connected to database ${dbURL}`))
+  .catch(e => {
+    debug(`ERROR CONNECTING TO DB ${dbURL}`);
+    throw e;
+  });
 
 app.use(cors());
 

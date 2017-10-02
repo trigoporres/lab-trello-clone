@@ -1,9 +1,9 @@
-'use strict';
+// 'use strict';
 
-var express = require('express');
-var controller = require('./list.controller');
+const express = require('express');
+const controller = require('./list.controller');
 
-var router = express.Router();
+const router = express.Router();
 
 router.get('/', controller.getLists);
 router.post('/', controller.createList);

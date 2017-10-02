@@ -1,7 +1,8 @@
+
 const _ = require('lodash');
-mongoose = require('mongoose');
-cardModel = require('./card.model');
-listModel = require('../list/list.model');
+const mongoose = require('mongoose');
+const cardModel = require('./card.model');
+const listModel = require('../list/list.model');
 
 exports.createCard = function(req, res, next) {
 	const newCard = new cardModel({
@@ -13,13 +14,18 @@ exports.createCard = function(req, res, next) {
 	});
 
 	newCard.save(function(err, card) {
+		const listId = card.list.id;
+
 		if(err) {
       console.log(err);
 			return res.send(500);
 		}
-
-		// Update the corresponding list
-		// Lesson 2: Update the current list
+		listModel
+			.findByIdAndUpdate(listId, {
+				$push: {
+					"cards": card._id
+				}
+			});
 	});
 };
 
@@ -68,7 +74,7 @@ exports.removeCard = function (req, res) {
         .findByIdAndRemove(req.params.id, function(err) {
             if (err) {
                 res.json({ message: 'impossible to remove the card', error: err });
-            };
+            }
 
             res.json({ message: 'card removed successfully' });
         });

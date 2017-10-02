@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "DEBUG=irontrello:* nodemon ./bin/www"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -15,9 +15,10 @@
     "express": "~4.14.0",
     "jade": "~1.11.0",
     "lodash": "^4.17.4",
-    "mongoose": "^4.8.3",
+    "mongoose": "^4.11.14",
+    "mongoose-connect": "0.0.3",
     "morgan": "~1.7.0",
-    "q": "^1.4.1",
+    "q": "^1.5.0",
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
